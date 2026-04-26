@@ -2,11 +2,11 @@
     import ApiResponse from "../utils/api-response.js";
     import { asyncHandler } from "../utils/async-handler.js";
     import {ApiError} from "../utils/api-error.js";
-    import{EmailVerificationContent, sendEmail} from "../utils/mail.js";
+    import{EmailVerificationContent, sendEmail,EmailPasswordResetContent} from "../utils/mail.js";
       import jwt from "jsonwebtoken";
 
 
-    const generateAccessAndRefreshToken = async(userId) =>
+const generateAccessAndRefreshToken = async(userId) =>
     {
         try{
             const user = await User.findById(userId);
@@ -27,9 +27,9 @@
      
     
      
-    }
+ }
 
-    const RegisterUser = asyncHandler (async(req,res) =>{ 
+const RegisterUser = asyncHandler (async(req,res) =>{ 
     const {email,username,password,fullName} = req.body;
 
     const existedUser = await User.findOne({$or:[{username},{email}]});
@@ -80,9 +80,9 @@
     )
     );
 
-    });
+ });
 
-    const login = asyncHandler(async(req,res)=>{
+const login = asyncHandler(async(req,res)=>{
         const{email,password,username}=req.body; 
 
         if(!email){
@@ -131,7 +131,7 @@
     
     
     
-    });
+});
    
 const logoutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(req.user._id, {
@@ -150,7 +150,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "User logged Out"));
 });
 
-const getCurrentUser= asyncHandler(async(req,re)=>{
+const getCurrentUser= asyncHandler(async(req,res)=>{
     return res 
     .status(200)
     .json(
@@ -368,7 +368,7 @@ const changeCurrentPassword = asyncHandler(async(req,res) =>{
   const {oldPassword,newPassword} = req.body;
 
    const user = await User.findById(req.user?._id);
-   const isPasswordValid = await comparePassword(oldpassword);
+   const isPasswordValid = await user.comparePassword(oldPassword);
     
    if(!isPasswordValid){
     throw new ApiError(404,"Invalid or Wrong Password");
@@ -387,4 +387,4 @@ return res
     ));
 });
 
-    export {resetForgotPassword,changeCurrentPassword,forgotPasswordRequest,RegisterUser,login,logoutUser,getCurrentUser,verifyEmail};
+    export {resetForgotPassword,changeCurrentPassword,forgotPasswordRequest,RegisterUser,login,logoutUser,getCurrentUser,verifyEmail,refreshAccessToken,resendEmailVerification};
