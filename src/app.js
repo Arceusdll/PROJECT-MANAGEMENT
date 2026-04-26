@@ -2,12 +2,17 @@ import express from "express"
 import cors from "cors"
 
 
+
+
+
+
 const app = express();
 // # Basic configuration for express app 
 app.use(express.json({limit:"16kb"}));
 app.use(express.urlencoded({extended:true , limit:"16kb"}));
 app.use(express.static("public"));
 
+app.use(cookieParser());
 
 app.use(cors(
     {
@@ -20,6 +25,7 @@ app.use(cors(
 
 import healthCheckRouter from "./routes/healthcheck.routes.js";
 import authrouter from "./routes/auth.route.js"
+import cookieParser from "cookie-parser";
 app.use("/api/v1/healthcheck", healthCheckRouter);
 app.use("/api/v1/auth/", authrouter);
 

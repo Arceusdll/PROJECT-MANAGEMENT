@@ -1,5 +1,15 @@
+
+import dotenv from "dotenv";
+
+dotenv.config(); // MUST be before anything else
+
+
+
+
 import Mailgen from "mailgen";
 import nodemailer from "nodemailer";
+
+
 
 
 
@@ -9,7 +19,7 @@ const sendEmail = async(options) =>{
         theme:"default",
         product:{
             name:"Task Manager",
-            link:"https:arceus.com"
+            link: "https://arceus.com"
         }
     })
     const emailTextual = mailgenerator.generatePlaintext(options.mailgenContent);
@@ -20,23 +30,23 @@ const sendEmail = async(options) =>{
         port:process.env.MAILTRAP_PORT,
         auth:{
             user:process.env.MAILTRAP_USER,
-            password:process.env.MAILTRAP_PASS,
+            pass:process.env.MAILTRAP_PASS,
         }
     })
 
     const mail ={
-        from:"mail.taskmanager.com",
+        from: "Task Manager <no-reply@taskmanager.com>",
         to:options.email,
         subject:options.subject,
         text:emailTextual,
         html:emailhtml,
     }
-    try{
-        await transporter.sendMail(mail);
-    }catch(Error)
-    {
-        console.error("Please try again");
-    }
+   try {
+  const info = await transporter.sendMail(mail);
+  console.log("EMAIL SENT:", info); // 👈 ADD THIS
+} catch (error) {
+  console.log("EMAIL ERROR:", error); // 👈 ADD THIS
+}
 }
 
 
@@ -91,6 +101,14 @@ const EmailPasswordResetContent = (username,
 
 };
 };
+
+
+console.log("MAIL CONFIG:", {
+  host: process.env.MAILTRAP_HOST,
+  port: process.env.MAILTRAP_PORT,
+  user: process.env.MAILTRAP_USER,
+  pass: process.env.MAILTRAP_PASS ? "YES" : "NO"
+});
 
 export {EmailPasswordResetContent,
     EmailVerificationContent,sendEmail};
