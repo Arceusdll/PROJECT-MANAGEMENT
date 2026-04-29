@@ -1,9 +1,11 @@
-    import {User} from "../models/user.models.js";
+    import { User } from "../models/user.models.js";
+    import{ Project } from "../models/project.models.js";
+    import { ProjectMember } from "../models/projectmember.models.js";
     import ApiResponse from "../utils/api-response.js";
     import { asyncHandler } from "../utils/async-handler.js";
     import {ApiError} from "../utils/api-error.js";
     import{EmailVerificationContent, sendEmail,EmailPasswordResetContent} from "../utils/mail.js";
-      import jwt from "jsonwebtoken";
+    import {verifyJWT} from "../middlewares/auth.middleware.js";
 
 
 const generateAccessAndRefreshToken = async(userId) =>
@@ -89,7 +91,7 @@ const login = asyncHandler(async(req,res)=>{
             throw new ApiError(400,"Issue with your credentials... Please check ur mail")
 
         }
-       const user= await User.findOne({email});
+       const user = await User.findOne({email});
       
        if(!user)
        {
@@ -163,7 +165,7 @@ const getCurrentUser= asyncHandler(async(req,res)=>{
 
 });
 
-const verifyEmail=asyncHandler(async(req,re)=>{
+const verifyEmail=asyncHandler(async(req,res)=>{
     const {verificationToken}=req.params
 
     if(!verificationToken)
@@ -235,17 +237,8 @@ const resendEmailVerification = asyncHandler(async(req,res)=>{
             `${req.protocol}://${req.get("host")}/api/v1/user/verify-email/${unhasedToken}`
         )
     });
-    return res
-    .status(200)
-    .json(
-        new ApiResponse(
-            200,
-            {},
-            "Email has been sent to your mail id ..."
-        )
-    )
-
 });
+
 const refreshAccessToken = asyncHandler(async(req,res) => {
    
     const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
@@ -387,4 +380,15 @@ return res
     ));
 });
 
-    export {resetForgotPassword,changeCurrentPassword,forgotPasswordRequest,RegisterUser,login,logoutUser,getCurrentUser,verifyEmail,refreshAccessToken,resendEmailVerification};
+   export {
+  resetForgotPassword,
+  changeCurrentPassword,
+  forgotPasswordRequest,
+  RegisterUser,
+  login,
+  logoutUser,
+  getCurrentUser,
+  verifyEmail,
+  refreshAccessToken,
+  resendEmailVerification
+};
