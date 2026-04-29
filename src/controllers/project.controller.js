@@ -194,7 +194,7 @@ import { AvailableRoles, UserRolesEnum } from "../utils/constants.js";
             $arrayElemAt:["user",0]
           }
         }
-      }.{
+      },{
         $project:{
           project:1,
           user:1,
@@ -227,7 +227,7 @@ import { AvailableRoles, UserRolesEnum } from "../utils/constants.js";
 
 
      let projectMember = await ProjectMember.findOne({
-          projet:new moongose.Types.ObjectId(projectId),
+          project:new moongose.Types.ObjectId(projectId),
           user:new moongose.Types.ObjectId(userId)
      });
 
