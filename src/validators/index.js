@@ -80,7 +80,7 @@ const createProjectValidator = () =>{
         body("name")
         .notEmpty()
         .withMessage("Name is required"),
-        body(description)
+        body("description")
         .optional(),
     ]
 }
@@ -101,5 +101,5 @@ const addMemberToProjectValidator = () =>{
     ]
 };
 export{
- createProjectValidator,userRegisterValidator,userLoginValidator,userChangeCurrentPasswordValidator,userResetForgotPasswordValidator,userForgotPasswordValidator
+ addMemberToProjectValidator,createProjectValidator,userRegisterValidator,userLoginValidator,userChangeCurrentPasswordValidator,userResetForgotPasswordValidator,userForgotPasswordValidator
 };

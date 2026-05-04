@@ -18,4 +18,4 @@
 This project implements a complete authentication system with secure login, JWT-based authorization, and email verification. It also includes proper error handling and structured API responses.
 
 ## Status
-Core authentication system is completed. Currently improving additional features and optimizations.
+Core authentication system is completed. Currently improving additional features and optimizations.gg
