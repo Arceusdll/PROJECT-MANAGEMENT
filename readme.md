@@ -1,174 +1,106 @@
 # 🚀 Project Management API
 
-A backend API built using **Node.js, Express, and MongoDB**.
-This project focuses on authentication, authorization, and building a scalable backend structure.
+Backend API built with **Node.js, Express, and MongoDB** featuring secure authentication and scalable architecture.
 
 ---
 
-## 📌 Features
+## ✨ Features
 
-* 🔐 JWT-based Authentication & Authorization
-* 📝 User Registration & Login System
-* 🔒 Protected Routes with Middleware
-* 🚪 Secure Logout System
-* 📂 Project Routes (basic structure implemented)
+* 🔐 JWT Authentication (Access + Refresh Tokens)
+* 📝 User Registration & Login
+* 🔒 Protected Routes (Middleware)
+* 📧 Email Verification
+* 🔑 Password Reset & Change
+* 👤 Get Current User
 
 ---
 
-## 🔢 API Versioning
+## 🔢 API Base
 
-This project uses versioned routes:
-
-```
+```bash
 /api/v1/...
 ```
-
-This ensures scalability and backward compatibility for future updates.
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Category       | Technology          |
-| -------------- | ------------------- |
-| Backend        | Node.js, Express.js |
-| Database       | MongoDB (Mongoose)  |
-| Authentication | JWT                 |
-| Security       | bcrypt / bcryptjs   |
-| Config         | dotenv              |
+* Node.js, Express.js
+* MongoDB (Mongoose)
+* JWT
+* bcrypt / bcryptjs
+* dotenv
 
 ---
 
-## 🏗️ Architecture Overview
-
-```
-Client → Routes → Controllers → Database
-            ↓
-      Middleware (Auth, Errors)
-```
-
----
-
-## 📁 Folder Structure
-
-```
-project/
-│
-├── controllers/
-├── models/
-├── routes/
-├── middlewares/
-├── utils/
-├── config/
-├── app.js
-├── index.js
-└── .env
-```
-
----
-
-## ⚙️ Installation & Setup
-
-### 1. Clone Repository
+## 📁 Structure
 
 ```bash
-git clone https://github.com/Arceusdll/PROJECT-MANAGEMENT.git
-cd PROJECT-MANAGEMENT
-```
-
-### 2. Install Dependencies
-
-```bash
-npm install
-```
-
-### 3. Setup Environment Variables
-
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection
-JWT_SECRET=your_secret_key
-```
-
-### 4. Run Server
-
-```bash
-npm run dev
+controllers/
+models/
+routes/
+middlewares/
+validators/
+utils/
 ```
 
 ---
 
-## 🔐 Authentication Flow
+## 🔐 Auth Flow
 
-1. User registers
-2. User logs in → receives **JWT access token**
-3. Token is sent via cookies or Authorization header
-4. Protected routes verify token before granting access
+* User logs in → server generates JWT
+* Token sent via cookies / headers
+* Middleware verifies token for protected routes
+
+---
+
+## 🔄 Refresh Token
+
+* Used to generate new access tokens
+* Improves security and user experience
 
 ---
 
 ## 📌 API Endpoints
 
-### Auth Routes
+### Auth
 
-| Method | Endpoint              | Description   |
-| ------ | --------------------- | ------------- |
-| POST   | /api/v1/auth/register | Register user |
-| POST   | /api/v1/auth/login    | Login user    |
-| POST   | /api/v1/auth/logout   | Logout user   |
+* POST `/api/v1/auth/register`
+* POST `/api/v1/auth/login`
+* POST `/api/v1/auth/logout`
+* POST `/api/v1/auth/refresh-token`
 
-### Health Check
+### Email
 
-| Method | Endpoint            | Description   |
-| ------ | ------------------- | ------------- |
-| GET    | /api/v1/healthcheck | Server status |
+* GET `/api/v1/auth/verify-email/:token`
+* POST `/api/v1/auth/resend-email-verification`
 
----
+### Password
 
-## 🧪 Sample Test Routes
+* POST `/api/v1/auth/forgot-password`
+* POST `/api/v1/auth/reset-password/:token`
+* POST `/api/v1/auth/change-password`
 
-* GET `/` → Basic server test
-* GET `/instagram` → Demo route
+### User
 
----
+* GET `/api/v1/auth/current-user`
 
-## 🛡️ Middleware Used
+### Health
 
-* JWT Authentication Middleware
-* Error Handling Middleware
-* Cookie Parser
+* GET `/api/v1/healthcheck`
 
 ---
 
 ## 🔄 Future Updates
 
-* 📂 Full Project Management (CRUD)
-* ✅ Task Creation & Scheduling
-* ⏳ Task Expiry System
-* 🔁 Refresh Token System
-* 👥 Role-Based Access Control
-* 📊 Logging (Morgan / Winston)
-
----
-
-## 🧠 Key Learnings
-
-* JWT Authentication & Authorization
-* REST API Design
-* Middleware Handling
-* MongoDB Schema Design
-* Backend Architecture
+* Project & Task Management
+* Role-Based Access Control
+* Logging System
 
 ---
 
 ## 👨‍💻 Author
 
-**Ankit Kumar**
-
-* GitHub: https://github.com/Arceusdll
-
----
-
-## ⭐ Support
-
-If you like this project, consider giving it a ⭐!
+Ankit Kumar
+GitHub: https://github.com/Arceusdll
+g
