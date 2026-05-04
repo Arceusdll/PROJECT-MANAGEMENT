@@ -251,7 +251,7 @@ import { AvailableRoles, UserRolesEnum } from "../utils/constants.js";
       new ApiResponse(
         200,
         {},
-        "Project Member Role Update successfully"
+        "Project Member Role Updated successfully"
       )
      )
 

@@ -26,8 +26,11 @@ app.use(cors(
 import healthCheckRouter from "./routes/healthcheck.routes.js";
 import authrouter from "./routes/auth.route.js"
 import cookieParser from "cookie-parser";
+
+import projectRouter from "./routes/project.routes.js";
 app.use("/api/v1/healthcheck", healthCheckRouter);
 app.use("/api/v1/auth/", authrouter);
+app.user("/api/v1/projects",projectRouter);
 
 
 app.get('/', (req, res) => {
