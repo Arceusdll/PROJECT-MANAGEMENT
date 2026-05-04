@@ -14,7 +14,7 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
     req.header("Authorization")?.replace("Bearer ", ""); // space important
 
   if (!token) {
-    throw new ApiError(401, "Unauthorized Request");
+    throw new ApiError(401, "UnauthorizeDgit push Request");
   }
 
   try {
